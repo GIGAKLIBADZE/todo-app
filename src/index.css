@@ -1,4 +1,4 @@
-*,
+/* *,
 *::before,
 *::after {
     padding: 0;
@@ -17,5 +17,5 @@ body {
     background-color: #fafafa !important;
     background-image: url(../public/images/bg-desktop-light.jpg) !important;
     background-repeat: no-repeat;
-}
+} */
 
