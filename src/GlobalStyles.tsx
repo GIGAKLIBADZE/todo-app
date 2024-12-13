@@ -14,12 +14,17 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
+        display: flex;
+        justify-content: center;
         width: 100vw;
         min-height: 100vh;
         padding: 48px 24px 72px 24px !important;
         background-color: #fafafa !important;
         background-image: url(../public/images/bg-mobile-light.jpg) !important;
-        background-repeat: no-repeat;
+        background-repeat: no-repeat;  
+        background-position: center top;
+        background-size: contain;
+        
     }
 `;
 

@@ -68,7 +68,7 @@ const NoTodos = styled.p`
   font-size: 25px;
   font-weight: bold;
   color: #9495a5;
-  margin-left: 80px;
+  text-align: center;
   margin-bottom: 30px;
 `;
 
