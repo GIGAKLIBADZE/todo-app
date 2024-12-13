@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         width: 100vw;
         min-height: 100vh;
-        padding: 0 0 72px !important;
+        padding: 48px 24px 72px 24px !important;
         background-color: #fafafa !important;
         background-image: url(../public/images/bg-desktop-light.jpg) !important;
         background-repeat: no-repeat;
