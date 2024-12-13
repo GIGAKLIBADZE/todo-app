@@ -7,7 +7,7 @@
 }
 
 html {
-    font-family: 'Josefin Sans' !important;
+    font-family: 'Josefin Sans', sans-serif !important;
 }
 
 body {
@@ -15,4 +15,7 @@ body {
     min-height: 100vh;
     padding: 0 0 72px !important;
     background-color: #fafafa !important;
+    background-image: url(../public/images/bg-desktop-light.jpg) !important;
+    background-repeat: no-repeat;
 }
+
