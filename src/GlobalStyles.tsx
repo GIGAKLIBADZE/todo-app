@@ -24,6 +24,11 @@ const GlobalStyle = createGlobalStyle`
         background-repeat: no-repeat;  
         background-position: center top;
         background-size: contain;
+
+        @media (min-width: 1440px) {    
+            padding: 70px 450px 52px 450px;
+            background-image: url(../public/images/bg-desktop-light.jpg) !important
+        }
         
     }
 `;

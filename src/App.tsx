@@ -22,6 +22,10 @@ const FooterText = styled.p`
   color: #9495a5;
   text-align: center;
   margin-top: 40px;
+
+  @media (min-width: 1440px) {
+    margin-top: 49px;
+  }
 `;
 
 export default App;

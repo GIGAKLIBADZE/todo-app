@@ -15,7 +15,7 @@ const HeaderContainer = styled.header`
 `;
 
 const Title = styled.h1`
-  font-size: 27px;
+  font-size: 33px;
   color: #d8d8d8;
   letter-spacing: 8px;
 `;
@@ -23,6 +23,11 @@ const Title = styled.h1`
 const Theme = styled.img`
   width: 20px;
   height: 20px;
+
+  @media (min-width: 1440px) {
+    width: 25.1px;
+    height: 26px;
+  }
 `;
 
 export default Header;

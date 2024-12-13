@@ -7,19 +7,23 @@ const Todos: React.FC = () => {
         <Mark></Mark>
         <Input type="text" placeholder="Create a new todo..." />
       </InputContainer>
-
       <TodoContainer>
         <NoTodos>No todos yet</NoTodos>
         <AfterTodo>
-          <Info style={{ marginLeft: "20px" }}>5 items left</Info>
-          <Info style={{ marginRight: "20px" }}>Clear Completed</Info>
+          <Info>5 items left</Info>
+          <FilterDesktop>
+            <FilterTexts>All</FilterTexts>
+            <FilterTexts>Active</FilterTexts>
+            <FilterTexts>Completed</FilterTexts>
+          </FilterDesktop>
+          <Info>Clear Completed</Info>
         </AfterTodo>
       </TodoContainer>
-      <Filter>
+      <FilterMobile>
         <FilterTexts>All</FilterTexts>
         <FilterTexts>Active</FilterTexts>
         <FilterTexts>Completed</FilterTexts>
-      </Filter>
+      </FilterMobile>
     </>
   );
 };
@@ -34,6 +38,13 @@ const InputContainer = styled.div`
   background-color: #ffffff;
   box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5);
   margin-top: 40px;
+
+  @media (min-width: 1440px) {
+    width: 540px;
+    height: 64px;
+    gap: 24px;
+    margin-top: 51px;
+  }
 `;
 
 const Mark = styled.div`
@@ -43,9 +54,15 @@ const Mark = styled.div`
   background-color: #ffffff;
   border: 1px solid #c5c5be;
   margin-left: 20px;
+
+  @media (min-width: 1440px) {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 const Input = styled.input`
+  font-family: "Josefin Sans", sans-serif !important;
   font-size: 12px;
   font-weight: normal;
   line-height: normal;
@@ -54,6 +71,11 @@ const Input = styled.input`
   color: #9495a5;
   border: none;
   outline: none;
+
+  @media (min-width: 1440px) {
+    font-size: 18px;
+    letter-spacing: -0.25px;
+  }
 `;
 
 const TodoContainer = styled.div`
@@ -62,6 +84,11 @@ const TodoContainer = styled.div`
   box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5);
   padding: 16px 0 20px;
   margin-top: 16px;
+
+  @media (min-width: 1440px) {
+    padding: 20px 0 16px;
+    margin-top: 24px;
+  }
 `;
 
 const NoTodos = styled.p`
@@ -85,9 +112,31 @@ const Info = styled.p`
   line-height: normal;
   letter-spacing: -0.17px;
   color: #9495a5;
+  margin: 0;
+
+  &:first-child {
+    margin-left: 20px;
+  }
+
+  &:last-child {
+    margin-right: 20px;
+  }
+
+  @media (min-width: 1440px) {
+    font-size: 14px;
+    letter-spacing: -0.19px;
+  }
+
+  &:first-child {
+    margin-left: 24px;
+  }
+
+  &:last-child {
+    margin-right: 24px;
+  }
 `;
 
-const Filter = styled.div`
+const FilterMobile = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,13 +147,22 @@ const Filter = styled.div`
   background-color: #ffffff;
   box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5);
   border: none;
-  font-size: 12px;
-  font-weight: normal;
-  line-height: normal;
-  letter-spacing: -0.17px;
-  text-align: left;
-  color: #9495a5;
   margin-top: 16px;
+
+  @media (min-width: 1440px) {
+    display: none;
+  }
+`;
+
+const FilterDesktop = styled.div`
+  display: none;
+
+  @media (min-width: 1440px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18.5px;
+  }
 `;
 
 const FilterTexts = styled.p`
