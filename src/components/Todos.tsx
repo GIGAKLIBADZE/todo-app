@@ -104,6 +104,7 @@ const Mark = styled.div`
   @media (min-width: 1440px) {
     width: 24px;
     height: 24px;
+    margin-left: 24px;
   }
 `;
 
@@ -153,6 +154,10 @@ const EachTodo = styled.div`
   width: 100%;
   height: 48px;
   border-bottom: 1px solid #e3e4f1;
+
+  @media (min-width: 1440px) {
+    height: 64px;
+  }
 `;
 
 const EachTodoText = styled.p`
@@ -162,6 +167,12 @@ const EachTodoText = styled.p`
   letter-spacing: -0.17px;
   color: #494c6b;
   margin-left: 12px;
+
+  @media (min-width: 1440px) {
+    font-size: 18px;
+    letter-spacing: -0.25px;
+    margin-left: 24px;
+  }
 `;
 
 const Cross = styled.img`
@@ -169,13 +180,18 @@ const Cross = styled.img`
   height: 12px;
   margin-right: 20px;
   margin-top: 5px;
+
+  @media (min-width: 1440px) {
+    margin-right: 24px;
+    display: none;
+  }
 `;
 
 const AfterTodo = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: #ffffff;
-  padding: 16px 0 20;
+  padding-top: 16px;
 `;
 
 const Info = styled.p`
