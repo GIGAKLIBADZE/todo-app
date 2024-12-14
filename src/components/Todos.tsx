@@ -56,7 +56,7 @@ const Todos: React.FC = () => {
           ))
         )}
         <AfterTodo>
-          <Info>5 items left</Info>
+          <Info>{todo.length} items left</Info>
           <FilterDesktop>
             <FilterTexts>All</FilterTexts>
             <FilterTexts>Active</FilterTexts>
