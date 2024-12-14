@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useState } from "react";
 
 interface Itodo {
@@ -46,8 +46,17 @@ const Todos: React.FC = () => {
               }}
             >
               <div style={{ display: "flex", alignItems: "center" }}>
-                <Mark></Mark>
-                <EachTodoText>{todo[index].task}</EachTodoText>
+                <Mark
+                  $mark={todo[index].mark}
+                  onClick={() => {
+                    const modifiedTodo = [...todo];
+                    modifiedTodo[index].mark = !modifiedTodo[index].mark;
+                    setTodo(modifiedTodo);
+                  }}
+                ></Mark>
+                <EachTodoText $mark={todo[index].mark}>
+                  {todo[index].task}
+                </EachTodoText>
               </div>
               <div>
                 <Cross src="../public/images/icon-cross.svg" alt="Cross" />
@@ -93,13 +102,24 @@ const InputContainer = styled.div`
   }
 `;
 
-const Mark = styled.div`
+const Mark = styled.div<{ $mark: boolean }>`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background: #ffffff;
   border: 1px solid #c5c5be;
   margin-left: 20px;
+
+  ${({ $mark }) =>
+    $mark
+      ? css`
+          background-image: url("../public/images/icon-check.svg");
+          background-image: url("../public/images/icon-check.svg"),
+            linear-gradient(135deg, #5df, #c058f3);
+          background-repeat: no-repeat;
+          background-position: center;
+        `
+      : ""}
 
   @media (min-width: 1440px) {
     width: 24px;
@@ -160,13 +180,14 @@ const EachTodo = styled.div`
   }
 `;
 
-const EachTodoText = styled.p`
+const EachTodoText = styled.p<{ $mark: boolean }>`
   font-size: 12px;
   font-weight: normal;
   line-height: normal;
   letter-spacing: -0.17px;
-  color: #494c6b;
+  color: ${({ $mark }) => ($mark ? "#d1d2da" : "#494c6b")};
   margin-left: 12px;
+  text-decoration: ${({ $mark }) => ($mark ? "line-through" : "none")};
 
   @media (min-width: 1440px) {
     font-size: 18px;
