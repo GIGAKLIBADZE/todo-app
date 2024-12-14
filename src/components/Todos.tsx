@@ -39,6 +39,7 @@ const Todos: React.FC = () => {
         ) : (
           todo.map((each, index) => (
             <EachTodo
+              $mark={todo[index].mark}
               key={each.id}
               style={{
                 borderTopLeftRadius: index === 0 ? "5px" : "",
@@ -118,8 +119,15 @@ const Mark = styled.div<{ $mark: boolean }>`
             linear-gradient(135deg, #5df, #c058f3);
           background-repeat: no-repeat;
           background-position: center;
+          border: none;
         `
-      : ""}
+      : css`
+          &:hover {
+            border: 1px solid;
+            border-image-source: linear-gradient(135deg, #5df, #c058f3)
+            border-image-slice: 1;
+          }
+        `}
 
   @media (min-width: 1440px) {
     width: 24px;
@@ -167,13 +175,20 @@ const NoTodos = styled.p`
   margin-bottom: 30px;
 `;
 
-const EachTodo = styled.div`
+const EachTodo = styled.div<{ $mark: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   height: 48px;
   border-bottom: 1px solid #e3e4f1;
+  cursor: pointer;
+
+  &:hover {
+    & > div > img {
+      display: ${({ $mark }) => ($mark ? "" : "block")};
+    }
+  }
 
   @media (min-width: 1440px) {
     height: 64px;
@@ -203,6 +218,8 @@ const Cross = styled.img`
   margin-top: 5px;
 
   @media (min-width: 1440px) {
+    width: 18px;
+    height: 18px;
     margin-right: 24px;
     display: none;
   }
