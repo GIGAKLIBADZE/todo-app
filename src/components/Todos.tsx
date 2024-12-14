@@ -34,12 +34,27 @@ const Todos: React.FC = () => {
         />
       </InputContainer>
       <TodoContainer>
-        {/* {todo.length < 1 ? (
+        {todo.length < 1 ? (
           <NoTodos>No todos yet</NoTodos>
         ) : (
-          todo.map((key) => <div>{todo[key]}</div>)
-        )} */}
-        {/* <NoTodos>No todos yet</NoTodos> */}
+          todo.map((each, index) => (
+            <EachTodo
+              key={each.id}
+              style={{
+                borderTopLeftRadius: index === 0 ? "5px" : "",
+                borderTopRightRadius: index === 0 ? "5px" : "",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Mark></Mark>
+                <EachTodoText>{todo[index].task}</EachTodoText>
+              </div>
+              <div>
+                <Cross src="../public/images/icon-cross.svg" alt="Cross" />
+              </div>
+            </EachTodo>
+          ))
+        )}
         <AfterTodo>
           <Info>5 items left</Info>
           <FilterDesktop>
@@ -113,11 +128,11 @@ const TodoContainer = styled.div`
   border-radius: 5px;
   background-color: #ffffff;
   box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5);
-  padding: 16px 0 20px;
+  padding-bottom: 20px;
   margin-top: 16px;
 
   @media (min-width: 1440px) {
-    padding: 20px 0 16px;
+    padding-bottom: 16px;
     margin-top: 24px;
   }
 `;
@@ -127,7 +142,33 @@ const NoTodos = styled.p`
   font-weight: bold;
   color: #9495a5;
   text-align: center;
+  padding-top: 16px;
   margin-bottom: 30px;
+`;
+
+const EachTodo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 48px;
+  border-bottom: 1px solid #e3e4f1;
+`;
+
+const EachTodoText = styled.p`
+  font-size: 12px;
+  font-weight: normal;
+  line-height: normal;
+  letter-spacing: -0.17px;
+  color: #494c6b;
+  margin-left: 12px;
+`;
+
+const Cross = styled.img`
+  width: 12px;
+  height: 12px;
+  margin-right: 20px;
+  margin-top: 5px;
 `;
 
 const AfterTodo = styled.div`
