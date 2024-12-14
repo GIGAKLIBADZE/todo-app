@@ -60,19 +60,38 @@ const Todos: React.FC = () => {
                 </EachTodoText>
               </div>
               <div>
-                <Cross src="../public/images/icon-cross.svg" alt="Cross" />
+                <Cross
+                  src="../public/images/icon-cross.svg"
+                  alt="Cross"
+                  onClick={() => {
+                    todo[index].task = "delete";
+                    const filtered = todo.filter((td) => td.task !== "delete");
+                    setTodo(filtered);
+                  }}
+                />
               </div>
             </EachTodo>
           ))
         )}
         <AfterTodo>
-          <Info>{todo.length} items left</Info>
+          <Info>
+            {todo.length > 1
+              ? `${todo.length} items left`
+              : `${todo.length} item left`}
+          </Info>
           <FilterDesktop>
             <FilterTexts>All</FilterTexts>
             <FilterTexts>Active</FilterTexts>
             <FilterTexts>Completed</FilterTexts>
           </FilterDesktop>
-          <Info>Clear Completed</Info>
+          <Info
+            onClick={() => {
+              const filtered = todo.filter((td) => td.mark !== true);
+              setTodo(filtered);
+            }}
+          >
+            Clear Completed
+          </Info>
         </AfterTodo>
       </TodoContainer>
       <FilterMobile>
@@ -146,6 +165,11 @@ const Input = styled.input`
   color: #9495a5;
   border: none;
   outline: none;
+  caret-color: #3a7cfd;
+
+  &:focus {
+    color: #393a4b;
+  }
 
   @media (min-width: 1440px) {
     font-size: 18px;
@@ -186,7 +210,7 @@ const EachTodo = styled.div<{ $mark: boolean }>`
 
   &:hover {
     & > div > img {
-      display: ${({ $mark }) => ($mark ? "" : "block")};
+      display: block;
     }
   }
 
@@ -240,12 +264,17 @@ const Info = styled.p`
   color: #9495a5;
   margin: 0;
 
+  &:last-child:hover {
+    color: #494c6b;
+  }
+
   &:first-child {
     margin-left: 20px;
   }
 
   &:last-child {
     margin-right: 20px;
+    cursor: pointer;
   }
 
   @media (min-width: 1440px) {
@@ -297,6 +326,11 @@ const FilterTexts = styled.p`
   line-height: normal;
   letter-spacing: -0.19px;
   color: #9495a5;
+  cursor: pointer;
+
+  &:hover {
+    color: #494c6b;
+  }
 `;
 
 export default Todos;
