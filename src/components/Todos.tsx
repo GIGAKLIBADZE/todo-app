@@ -1,14 +1,45 @@
 import styled from "styled-components";
+import { useState } from "react";
+
+interface Itodo {
+  id: number;
+  task: string;
+  mark: boolean;
+}
 
 const Todos: React.FC = () => {
+  const [todo, setTodo] = useState<Itodo[]>([]);
+  const [newTodo, setNewTodo] = useState<string>("");
+
   return (
     <>
       <InputContainer>
         <Mark></Mark>
-        <Input type="text" placeholder="Create a new todo..." />
+        <Input
+          type="text"
+          placeholder="Create a new todo..."
+          value={newTodo}
+          onChange={(event) => setNewTodo(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              const newTask: Itodo = {
+                id: Date.now(),
+                task: newTodo,
+                mark: false,
+              };
+              setTodo([...todo, newTask]);
+              setNewTodo("");
+            }
+          }}
+        />
       </InputContainer>
       <TodoContainer>
-        <NoTodos>No todos yet</NoTodos>
+        {/* {todo.length < 1 ? (
+          <NoTodos>No todos yet</NoTodos>
+        ) : (
+          todo.map((key) => <div>{todo[key]}</div>)
+        )} */}
+        {/* <NoTodos>No todos yet</NoTodos> */}
         <AfterTodo>
           <Info>5 items left</Info>
           <FilterDesktop>
