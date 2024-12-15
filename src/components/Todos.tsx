@@ -10,6 +10,9 @@ interface Itodo {
 const Todos: React.FC = () => {
   const [todo, setTodo] = useState<Itodo[]>([]);
   const [newTodo, setNewTodo] = useState<string>("");
+  const [allColor, setAllColor] = useState<boolean>(true);
+  const [activeColor, setActiveColor] = useState<boolean>(false);
+  const [completedColor, setCompletedColor] = useState<boolean>(false);
 
   return (
     <>
@@ -80,9 +83,62 @@ const Todos: React.FC = () => {
               : `${todo.length} item left`}
           </Info>
           <FilterDesktop>
-            <FilterTexts>All</FilterTexts>
-            <FilterTexts>Active</FilterTexts>
-            <FilterTexts>Completed</FilterTexts>
+            <FilterTexts
+              allColor={allColor}
+              onClick={() => {
+                if (activeColor === true) {
+                  setActiveColor(false);
+                }
+
+                if (completedColor === true) {
+                  setCompletedColor(false);
+                }
+              }}
+            >
+              All
+            </FilterTexts>
+            <FilterTexts
+              activeColor={activeColor}
+              onClick={() => {
+                const filtered = todo.filter((td) => td.mark === false);
+                setTodo(filtered);
+
+                if (activeColor === false) {
+                  setActiveColor(true);
+                }
+
+                if (completedColor === true) {
+                  setCompletedColor(false);
+                }
+
+                if (allColor === true) {
+                  setAllColor(false);
+                }
+              }}
+            >
+              Active
+            </FilterTexts>
+            <FilterTexts
+              completedColor={completedColor}
+              onClick={() => {
+                const filtered = todo.filter((td) => td.mark === true);
+                setTodo(filtered);
+
+                if (completedColor === false) {
+                  setCompletedColor(true);
+                }
+
+                if (activeColor === true) {
+                  setActiveColor(false);
+                }
+
+                if (allColor === true) {
+                  setAllColor(false);
+                }
+              }}
+            >
+              Completed
+            </FilterTexts>
           </FilterDesktop>
           <Info
             onClick={() => {
@@ -320,12 +376,17 @@ const FilterDesktop = styled.div`
   }
 `;
 
-const FilterTexts = styled.p`
+const FilterTexts = styled.p<{
+  activeColor: boolean;
+  completedColor: boolean;
+  allColor: boolean;
+}>`
   font-size: 14px;
   font-weight: bold;
   line-height: normal;
   letter-spacing: -0.19px;
-  color: #9495a5;
+  color: ${({ activeColor, completedColor, allColor }) =>
+    activeColor || completedColor || allColor ? "#3a7cfd" : "#9495a5"};
   cursor: pointer;
 
   &:hover {
