@@ -7,12 +7,15 @@ interface Itodo {
   mark: boolean;
 }
 
-const Todos: React.FC = () => {
+const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
   const [todo, setTodo] = useState<Itodo[]>([]);
   const [newTodo, setNewTodo] = useState<string>("");
   const [allColor, setAllColor] = useState<boolean>(true);
   const [activeColor, setActiveColor] = useState<boolean>(false);
   const [completedColor, setCompletedColor] = useState<boolean>(false);
+
+  const filteredActive = todo.filter((td) => td.mark === false);
+  const filteredCompleted = todo.filter((td) => td.mark === true);
 
   return (
     <>
@@ -85,13 +88,30 @@ const Todos: React.FC = () => {
           <FilterDesktop>
             <FilterTexts
               allColor={allColor}
+              // onClick={() => {
+              //   if (allColor === false) {
+              //     setAllColor(true);
+              //     setActiveColor(false);
+              //     setCompletedColor(false);
+              //   } else {
+              //     setAllColor(false);
+              //     setTodo(todo); // Reset to all todos
+              //   }
+              //   if (activeColor === true) {
+              //     setActiveColor(false);
+              //   }
+              //   if (completedColor === true) {
+              //     setCompletedColor(false);
+              //   }
+              // }}
               onClick={() => {
-                if (activeColor === true) {
+                if (allColor === false) {
+                  setAllColor(true);
                   setActiveColor(false);
-                }
-
-                if (completedColor === true) {
                   setCompletedColor(false);
+                } else {
+                  setAllColor(false);
+                  setTodo(todo); // Reset to all todos
                 }
               }}
             >
@@ -99,20 +119,39 @@ const Todos: React.FC = () => {
             </FilterTexts>
             <FilterTexts
               activeColor={activeColor}
-              onClick={() => {
-                const filtered = todo.filter((td) => td.mark === false);
-                setTodo(filtered);
+              // onClick={() => {
+              //   console.log(filteredActive);
+              //   setTodo(filteredActive);
 
+              //   if (activeColor === false) {
+              //     setActiveColor(true);
+              //     // setActiveColor(true);
+              //     setCompletedColor(false);
+              //     setAllColor(false);
+              //     setTodo(filteredActive);
+              //   } else {
+              //     setActiveColor(false);
+              //     setTodo(todo); // Reset to all todos
+              //   }
+
+              //   if (completedColor === true) {
+              //     setCompletedColor(false);
+              //   }
+
+              //   if (allColor === true) {
+              //     setAllColor(false);
+              //   }
+              // }}
+
+              onClick={() => {
                 if (activeColor === false) {
                   setActiveColor(true);
-                }
-
-                if (completedColor === true) {
                   setCompletedColor(false);
-                }
-
-                if (allColor === true) {
                   setAllColor(false);
+                  setTodo(filteredActive);
+                } else {
+                  setActiveColor(false);
+                  setTodo(todo); // Reset to all todos
                 }
               }}
             >
@@ -120,20 +159,37 @@ const Todos: React.FC = () => {
             </FilterTexts>
             <FilterTexts
               completedColor={completedColor}
-              onClick={() => {
-                const filtered = todo.filter((td) => td.mark === true);
-                setTodo(filtered);
+              // onClick={() => {
+              //   setTodo(filteredCompleted);
 
+              //   console.log(filteredCompleted);
+
+              //   if (completedColor === false) {
+              //     setCompletedColor(true);
+              //     setActiveColor(false);
+              //     setAllColor(false);
+              //   } else {
+              //     setCompletedColor(false);
+              //     setTodo(todo); // Reset to all todos
+              //   }
+
+              //   if (activeColor === true) {
+              //     setActiveColor(false);
+              //   }
+
+              //   if (allColor === true) {
+              //     setAllColor(false);
+              //   }
+              // }}
+              onClick={() => {
                 if (completedColor === false) {
                   setCompletedColor(true);
-                }
-
-                if (activeColor === true) {
                   setActiveColor(false);
-                }
-
-                if (allColor === true) {
                   setAllColor(false);
+                  setTodo(filteredCompleted);
+                } else {
+                  setCompletedColor(false);
+                  setTodo(todo); // Reset to all todos
                 }
               }}
             >
@@ -211,14 +267,14 @@ const Mark = styled.div<{ $mark: boolean }>`
   }
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ theme: boolean }>`
   font-family: "Josefin Sans", sans-serif !important;
   font-size: 12px;
   font-weight: normal;
   line-height: normal;
   letter-spacing: -0.17px;
   text-align: left;
-  color: #9495a5;
+  color: ${({ theme }) => (theme ? "#9495a5" : "red")};
   border: none;
   outline: none;
   caret-color: #3a7cfd;

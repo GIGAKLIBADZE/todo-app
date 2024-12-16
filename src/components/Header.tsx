@@ -1,10 +1,18 @@
 import styled from "styled-components";
 
-const Header: React.FC = () => {
+const Header: React.FC<{
+  theme: boolean;
+  setTheme: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ theme, setTheme }) => {
   return (
     <HeaderContainer>
       <Title>TODO</Title>
-      <Theme src="images/icon-moon.svg" alt="Moon" className="theme" />
+      <Theme
+        onClick={() => setTheme(!theme)}
+        src={`${theme ? "images/icon-moon.svg" : "images/icon-sun.svg"}`}
+        alt="Moon"
+        className="theme"
+      />
     </HeaderContainer>
   );
 };
