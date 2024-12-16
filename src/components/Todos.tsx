@@ -13,9 +13,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
   const [allColor, setAllColor] = useState<boolean>(true);
   const [activeColor, setActiveColor] = useState<boolean>(false);
   const [completedColor, setCompletedColor] = useState<boolean>(false);
-
-  const filteredActive = todo.filter((td) => td.mark === false);
-  const filteredCompleted = todo.filter((td) => td.mark === true);
+  const [filter, setFilter] = useState<string>("All");
 
   return (
     <>
@@ -43,41 +41,53 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
         {todo.length < 1 ? (
           <NoTodos>No todos yet</NoTodos>
         ) : (
-          todo.map((each, index) => (
-            <EachTodo
-              $mark={todo[index].mark}
-              key={each.id}
-              style={{
-                borderTopLeftRadius: index === 0 ? "5px" : "",
-                borderTopRightRadius: index === 0 ? "5px" : "",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <Mark
-                  $mark={todo[index].mark}
-                  onClick={() => {
-                    const modifiedTodo = [...todo];
-                    modifiedTodo[index].mark = !modifiedTodo[index].mark;
-                    setTodo(modifiedTodo);
-                  }}
-                ></Mark>
-                <EachTodoText $mark={todo[index].mark}>
-                  {todo[index].task}
-                </EachTodoText>
-              </div>
-              <div>
-                <Cross
-                  src="../public/images/icon-cross.svg"
-                  alt="Cross"
-                  onClick={() => {
-                    todo[index].task = "delete";
-                    const filtered = todo.filter((td) => td.task !== "delete");
-                    setTodo(filtered);
-                  }}
-                />
-              </div>
-            </EachTodo>
-          ))
+          todo
+            .filter((item) => {
+              if (filter === "All") {
+                return true;
+              } else if (filter === "Active") {
+                return item.mark === false;
+              } else {
+                return item.mark === true;
+              }
+            })
+            .map((each, index) => (
+              <EachTodo
+                $mark={each.mark}
+                key={each.id}
+                style={{
+                  borderTopLeftRadius: index === 0 ? "5px" : "",
+                  borderTopRightRadius: index === 0 ? "5px" : "",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Mark
+                    $mark={each.mark}
+                    onClick={() => {
+                      const modifiedTodo = [...todo];
+                      const findIndex = todo.findIndex((item) => item === each);
+                      modifiedTodo[findIndex].mark =
+                        !modifiedTodo[findIndex].mark;
+                      setTodo(modifiedTodo);
+                    }}
+                  ></Mark>
+                  <EachTodoText $mark={each.mark}>{each.task}</EachTodoText>
+                </div>
+                <div>
+                  <Cross
+                    src="../public/images/icon-cross.svg"
+                    alt="Cross"
+                    onClick={() => {
+                      each.task = "delete";
+                      const filtered = todo.filter(
+                        (td) => td.task !== "delete"
+                      );
+                      setTodo(filtered);
+                    }}
+                  />
+                </div>
+              </EachTodo>
+            ))
         )}
         <AfterTodo>
           <Info>
@@ -88,30 +98,12 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
           <FilterDesktop>
             <FilterTexts
               allColor={allColor}
-              // onClick={() => {
-              //   if (allColor === false) {
-              //     setAllColor(true);
-              //     setActiveColor(false);
-              //     setCompletedColor(false);
-              //   } else {
-              //     setAllColor(false);
-              //     setTodo(todo); // Reset to all todos
-              //   }
-              //   if (activeColor === true) {
-              //     setActiveColor(false);
-              //   }
-              //   if (completedColor === true) {
-              //     setCompletedColor(false);
-              //   }
-              // }}
               onClick={() => {
+                setFilter("All");
                 if (allColor === false) {
                   setAllColor(true);
                   setActiveColor(false);
                   setCompletedColor(false);
-                } else {
-                  setAllColor(false);
-                  setTodo(todo); // Reset to all todos
                 }
               }}
             >
@@ -119,39 +111,12 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
             </FilterTexts>
             <FilterTexts
               activeColor={activeColor}
-              // onClick={() => {
-              //   console.log(filteredActive);
-              //   setTodo(filteredActive);
-
-              //   if (activeColor === false) {
-              //     setActiveColor(true);
-              //     // setActiveColor(true);
-              //     setCompletedColor(false);
-              //     setAllColor(false);
-              //     setTodo(filteredActive);
-              //   } else {
-              //     setActiveColor(false);
-              //     setTodo(todo); // Reset to all todos
-              //   }
-
-              //   if (completedColor === true) {
-              //     setCompletedColor(false);
-              //   }
-
-              //   if (allColor === true) {
-              //     setAllColor(false);
-              //   }
-              // }}
-
               onClick={() => {
+                setFilter("Active");
                 if (activeColor === false) {
                   setActiveColor(true);
                   setCompletedColor(false);
                   setAllColor(false);
-                  setTodo(filteredActive);
-                } else {
-                  setActiveColor(false);
-                  setTodo(todo); // Reset to all todos
                 }
               }}
             >
@@ -159,37 +124,12 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
             </FilterTexts>
             <FilterTexts
               completedColor={completedColor}
-              // onClick={() => {
-              //   setTodo(filteredCompleted);
-
-              //   console.log(filteredCompleted);
-
-              //   if (completedColor === false) {
-              //     setCompletedColor(true);
-              //     setActiveColor(false);
-              //     setAllColor(false);
-              //   } else {
-              //     setCompletedColor(false);
-              //     setTodo(todo); // Reset to all todos
-              //   }
-
-              //   if (activeColor === true) {
-              //     setActiveColor(false);
-              //   }
-
-              //   if (allColor === true) {
-              //     setAllColor(false);
-              //   }
-              // }}
               onClick={() => {
+                setFilter("Completed");
                 if (completedColor === false) {
                   setCompletedColor(true);
                   setActiveColor(false);
                   setAllColor(false);
-                  setTodo(filteredCompleted);
-                } else {
-                  setCompletedColor(false);
-                  setTodo(todo); // Reset to all todos
                 }
               }}
             >
