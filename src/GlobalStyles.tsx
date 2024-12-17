@@ -19,7 +19,6 @@ const GlobalStyle = createGlobalStyle<{ $theme: boolean }>`
         width: 100vw;
         min-height: 100vh;
         padding: 48px 24px 72px 24px !important;
-        /* background-color: #fafafa !important; */
         background-color: ${({ $theme }) => ($theme ? "#fafafa" : "#171823")};
         background-image: ${({ $theme }) =>
           $theme
@@ -31,7 +30,10 @@ const GlobalStyle = createGlobalStyle<{ $theme: boolean }>`
 
         @media (min-width: 1440px) {    
             padding: 70px 450px 52px 450px;
-            background-image: url(../public/images/bg-desktop-light.jpg) !important
+            background-image: ${({ $theme }) =>
+              $theme
+                ? "url(../public/images/bg-desktop-light.jpg)"
+                : "url(../public/images/bg-desktop-dark.jpg)"};;
         }
         
     }

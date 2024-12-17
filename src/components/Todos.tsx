@@ -210,9 +210,7 @@ const InputContainer = styled.div<{ $theme: boolean }>`
   width: 327px;
   height: 48px;
   border-radius: 5px;
-  /* background-color: #ffffff; */
   background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
-  /* box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5); */
   box-shadow: ${({ $theme }) =>
     $theme
       ? "0 35px 50px -15px rgba(194, 195, 214, 0.5)"
@@ -231,9 +229,7 @@ const Mark = styled.div<{ $mark: boolean; $theme: boolean }>`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  /* background: "#ffffff"; */
   background: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
-  /* border: 1px solid #c5c5be; */
   border: ${({ $theme }) =>
     $theme ? "1px solid #e3e4f1" : "1px solid #393a4b"};
   margin-left: 20px;
@@ -274,7 +270,6 @@ const Input = styled.input<{ $theme: boolean }>`
   border: none;
   outline: none;
   caret-color: #3a7cfd;
-  /* background: #ffffff; */
   background: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
 
   &:focus {
@@ -289,9 +284,7 @@ const Input = styled.input<{ $theme: boolean }>`
 
 const TodoContainer = styled.div<{ $theme: boolean }>`
   border-radius: 5px;
-  /* background-color: #ffffff; */
   background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
-  /* box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5); */
   box-shadow: ${({ $theme }) =>
     $theme
       ? "0 35px 50px -15px rgba(194, 195, 214, 0.5)"
@@ -308,7 +301,6 @@ const TodoContainer = styled.div<{ $theme: boolean }>`
 const NoTodos = styled.p<{ $theme: boolean }>`
   font-size: 25px;
   font-weight: bold;
-  /* color: #9495a5; */
   color: ${({ $theme }) => ($theme ? "#9495a5" : "#5b5e7e")};
   text-align: center;
   padding-top: 16px;
@@ -321,7 +313,6 @@ const EachTodo = styled.div<{ $mark: boolean; $theme: boolean }>`
   justify-content: space-between;
   width: 100%;
   height: 48px;
-  /* border-bottom: 1px solid #e3e4f1; */
   border-bottom: ${({ $theme }) =>
     $theme ? "1px solid #e3e4f1" : "1px solid #393a4b"};
   cursor: pointer;
@@ -389,7 +380,6 @@ const Cross = styled.img`
 const AfterTodo = styled.div<{ $theme: boolean }>`
   display: flex;
   justify-content: space-between;
-  /* background-color: #ffffff; */
   background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
   padding-top: 16px;
 `;
@@ -399,7 +389,6 @@ const Info = styled.p<{ $theme: boolean }>`
   font-weight: normal;
   line-height: normal;
   letter-spacing: -0.17px;
-  /* color: #9495a5; */
   color: ${({ $theme }) => ($theme ? "#9495a5" : "#5b5e7e")};
   margin: 0;
   background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
@@ -439,9 +428,7 @@ const FilterMobile = styled.div<{ $theme: boolean }>`
   width: 327px;
   height: 48px;
   border-radius: 5px;
-  /* background-color: #ffffff; */
   background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
-  /* box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5); */
   box-shadow: ${({ $theme }) =>
     $theme
       ? "0 35px 50px -15px rgba(194, 195, 214, 0.5)"
@@ -475,8 +462,6 @@ const FilterTexts = styled.p<{
   font-weight: bold;
   line-height: normal;
   letter-spacing: -0.19px;
-  /* color: ${({ $activeColor, $completedColor, $allColor }) =>
-    $activeColor || $completedColor || $allColor ? "#3a7cfd" : "#9495a5"}; */
   ${({ $activeColor, $completedColor, $allColor, $theme }) => {
     if ($activeColor || $completedColor || $allColor) {
       return css`
