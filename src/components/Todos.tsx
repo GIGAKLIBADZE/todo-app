@@ -97,7 +97,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
           </Info>
           <FilterDesktop>
             <FilterTexts
-              allColor={allColor}
+              $allColor={allColor}
               onClick={() => {
                 setFilter("All");
                 if (allColor === false) {
@@ -110,7 +110,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
               All
             </FilterTexts>
             <FilterTexts
-              activeColor={activeColor}
+              $activeColor={activeColor}
               onClick={() => {
                 setFilter("Active");
                 if (activeColor === false) {
@@ -123,7 +123,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
               Active
             </FilterTexts>
             <FilterTexts
-              completedColor={completedColor}
+              $completedColor={completedColor}
               onClick={() => {
                 setFilter("Completed");
                 if (completedColor === false) {
@@ -155,14 +155,15 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
   );
 };
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<{ $theme: boolean }>`
   display: flex;
   align-items: center;
   gap: 12px;
   width: 327px;
   height: 48px;
   border-radius: 5px;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
+  background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
   box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5);
   margin-top: 40px;
 
@@ -178,7 +179,7 @@ const Mark = styled.div<{ $mark: boolean }>`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #ffffff;
+  background: "#ffffff";
   border: 1px solid #c5c5be;
   margin-left: 20px;
 
@@ -207,17 +208,18 @@ const Mark = styled.div<{ $mark: boolean }>`
   }
 `;
 
-const Input = styled.input<{ theme: boolean }>`
+const Input = styled.input`
   font-family: "Josefin Sans", sans-serif !important;
   font-size: 12px;
   font-weight: normal;
   line-height: normal;
   letter-spacing: -0.17px;
   text-align: left;
-  color: ${({ theme }) => (theme ? "#9495a5" : "red")};
+  color: "#9495a5";
   border: none;
   outline: none;
   caret-color: #3a7cfd;
+  background: #ffffff;
 
   &:focus {
     color: #393a4b;
@@ -373,16 +375,16 @@ const FilterDesktop = styled.div`
 `;
 
 const FilterTexts = styled.p<{
-  activeColor: boolean;
-  completedColor: boolean;
-  allColor: boolean;
+  $activeColor: boolean;
+  $completedColor: boolean;
+  $allColor: boolean;
 }>`
   font-size: 14px;
   font-weight: bold;
   line-height: normal;
   letter-spacing: -0.19px;
-  color: ${({ activeColor, completedColor, allColor }) =>
-    activeColor || completedColor || allColor ? "#3a7cfd" : "#9495a5"};
+  color: ${({ $activeColor, $completedColor, $allColor }) =>
+    $activeColor || $completedColor || $allColor ? "#3a7cfd" : "#9495a5"};
   cursor: pointer;
 
   &:hover {

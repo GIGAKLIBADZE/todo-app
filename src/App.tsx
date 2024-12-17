@@ -8,7 +8,7 @@ function App() {
   const [theme, setTheme] = useState<boolean>(true);
   return (
     <>
-      <GlobalStyles />
+      <GlobalStyles $theme={theme} />
       <Header theme={theme} setTheme={setTheme} />
       <Todos theme={theme} />
       <FooterText>Drag and drop to reorder list</FooterText>

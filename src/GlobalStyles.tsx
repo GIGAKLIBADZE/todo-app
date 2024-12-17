@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ $theme: boolean }>`
     *,
     *::before,
     *::after {
@@ -19,8 +19,12 @@ const GlobalStyle = createGlobalStyle`
         width: 100vw;
         min-height: 100vh;
         padding: 48px 24px 72px 24px !important;
-        background-color: #fafafa !important;
-        background-image: url(../public/images/bg-mobile-light.jpg) !important;
+        /* background-color: #fafafa !important; */
+        background-color: ${({ $theme }) => ($theme ? "#fafafa" : "#171823")};
+        background-image: ${({ $theme }) =>
+          $theme
+            ? "url(../public/images/bg-mobile-light.jpg)"
+            : "url(../public/images/bg-mobile-dark.jpg)"};
         background-repeat: no-repeat;  
         background-position: center top;
         background-size: contain;
