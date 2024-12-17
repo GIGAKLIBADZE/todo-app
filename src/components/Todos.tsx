@@ -394,7 +394,8 @@ const Info = styled.p<{ $theme: boolean }>`
   background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
 
   &:last-child:hover {
-    color: #494c6b;
+    /* color: #494c6b; */
+    color: ${({ $theme }) => ($theme ? "#494c6b" : "#e3e4f1")};
   }
 
   &:first-child {
@@ -480,7 +481,8 @@ const FilterTexts = styled.p<{
   cursor: pointer;
 
   &:hover {
-    color: #494c6b;
+    /* color: #494c6b; */
+    color: ${({ $theme }) => ($theme ? "#494c6b" : "#e3e4f1")};
   }
 `;
 
