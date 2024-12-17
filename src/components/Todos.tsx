@@ -100,8 +100,9 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
               ? `${todo.length} items left`
               : `${todo.length} item left`}
           </Info>
-          <FilterDesktop>
+          <FilterDesktop $theme={theme}>
             <FilterTexts
+              $theme={theme}
               $allColor={allColor}
               onClick={() => {
                 setFilter("All");
@@ -115,6 +116,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
               All
             </FilterTexts>
             <FilterTexts
+              $theme={theme}
               $activeColor={activeColor}
               onClick={() => {
                 setFilter("Active");
@@ -128,6 +130,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
               Active
             </FilterTexts>
             <FilterTexts
+              $theme={theme}
               $completedColor={completedColor}
               onClick={() => {
                 setFilter("Completed");
@@ -152,10 +155,49 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
           </Info>
         </AfterTodo>
       </TodoContainer>
-      <FilterMobile>
-        <FilterTexts>All</FilterTexts>
-        <FilterTexts>Active</FilterTexts>
-        <FilterTexts>Completed</FilterTexts>
+      <FilterMobile $theme={theme}>
+        <FilterTexts
+          $theme={theme}
+          $allColor={allColor}
+          onClick={() => {
+            setFilter("All");
+            if (allColor === false) {
+              setAllColor(true);
+              setActiveColor(false);
+              setCompletedColor(false);
+            }
+          }}
+        >
+          All
+        </FilterTexts>
+        <FilterTexts
+          $theme={theme}
+          $activeColor={activeColor}
+          onClick={() => {
+            setFilter("Active");
+            if (activeColor === false) {
+              setActiveColor(true);
+              setCompletedColor(false);
+              setAllColor(false);
+            }
+          }}
+        >
+          Active
+        </FilterTexts>
+        <FilterTexts
+          $theme={theme}
+          $completedColor={completedColor}
+          onClick={() => {
+            setFilter("Completed");
+            if (completedColor === false) {
+              setCompletedColor(true);
+              setActiveColor(false);
+              setAllColor(false);
+            }
+          }}
+        >
+          Completed
+        </FilterTexts>
       </FilterMobile>
     </>
   );
@@ -389,7 +431,7 @@ const Info = styled.p<{ $theme: boolean }>`
   }
 `;
 
-const FilterMobile = styled.div`
+const FilterMobile = styled.div<{ $theme: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -397,8 +439,13 @@ const FilterMobile = styled.div`
   width: 327px;
   height: 48px;
   border-radius: 5px;
-  background-color: #ffffff;
-  box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5);
+  /* background-color: #ffffff; */
+  background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
+  /* box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5); */
+  box-shadow: ${({ $theme }) =>
+    $theme
+      ? "0 35px 50px -15px rgba(194, 195, 214, 0.5)"
+      : "0 35px 50px -15px rgba(0, 0, 0, 0.5)"};
   border: none;
   margin-top: 16px;
 
@@ -422,13 +469,29 @@ const FilterTexts = styled.p<{
   $activeColor: boolean;
   $completedColor: boolean;
   $allColor: boolean;
+  $theme: boolean;
 }>`
   font-size: 14px;
   font-weight: bold;
   line-height: normal;
   letter-spacing: -0.19px;
-  color: ${({ $activeColor, $completedColor, $allColor }) =>
-    $activeColor || $completedColor || $allColor ? "#3a7cfd" : "#9495a5"};
+  /* color: ${({ $activeColor, $completedColor, $allColor }) =>
+    $activeColor || $completedColor || $allColor ? "#3a7cfd" : "#9495a5"}; */
+  ${({ $activeColor, $completedColor, $allColor, $theme }) => {
+    if ($activeColor || $completedColor || $allColor) {
+      return css`
+        color: #3a7cfd;
+      `;
+    } else if ($theme) {
+      return css`
+        color: #9495a5;
+      `;
+    } else if (!$theme) {
+      return css`
+        color: #5b5e7e;
+      `;
+    }
+  }}
   cursor: pointer;
 
   &:hover {
