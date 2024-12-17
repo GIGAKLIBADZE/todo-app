@@ -170,7 +170,11 @@ const InputContainer = styled.div<{ $theme: boolean }>`
   border-radius: 5px;
   /* background-color: #ffffff; */
   background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
-  box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5);
+  /* box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5); */
+  box-shadow: ${({ $theme }) =>
+    $theme
+      ? "0 35px 50px -15px rgba(194, 195, 214, 0.5)"
+      : "0 35px 50px -15px rgba(0, 0, 0, 0.5)"};
   margin-top: 40px;
 
   @media (min-width: 1440px) {
