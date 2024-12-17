@@ -38,6 +38,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
           }}
         />
       </InputContainer>
+
       <TodoContainer $theme={theme}>
         {todo.length < 1 ? (
           <NoTodos $theme={theme}>No todos yet</NoTodos>
@@ -100,7 +101,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
               ? `${todo.length} items left`
               : `${todo.length} item left`}
           </Info>
-          <FilterDesktop $theme={theme}>
+          <FilterDesktop>
             <FilterTexts
               $theme={theme}
               $allColor={allColor}
@@ -155,6 +156,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
           </Info>
         </AfterTodo>
       </TodoContainer>
+
       <FilterMobile $theme={theme}>
         <FilterTexts
           $theme={theme}
@@ -225,7 +227,7 @@ const InputContainer = styled.div<{ $theme: boolean }>`
   }
 `;
 
-const Mark = styled.div<{ $mark: boolean; $theme: boolean }>`
+const Mark = styled.div<{ $mark?: boolean; $theme: boolean }>`
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -261,12 +263,13 @@ const Mark = styled.div<{ $mark: boolean; $theme: boolean }>`
 
 const Input = styled.input<{ $theme: boolean }>`
   font-family: "Josefin Sans", sans-serif !important;
+  width: 80%;
   font-size: 12px;
   font-weight: normal;
   line-height: normal;
   letter-spacing: -0.17px;
   text-align: left;
-  color: "#9495a5";
+  color: ${({ $theme }) => ($theme ? "#9495a5" : "#767992")};
   border: none;
   outline: none;
   caret-color: #3a7cfd;
@@ -274,6 +277,7 @@ const Input = styled.input<{ $theme: boolean }>`
 
   &:focus {
     color: #393a4b;
+    color: ${({ $theme }) => ($theme ? "#393a4b" : "#c8cbe7")};
   }
 
   @media (min-width: 1440px) {
@@ -454,9 +458,9 @@ const FilterDesktop = styled.div`
 `;
 
 const FilterTexts = styled.p<{
-  $activeColor: boolean;
-  $completedColor: boolean;
-  $allColor: boolean;
+  $activeColor?: boolean;
+  $completedColor?: boolean;
+  $allColor?: boolean;
   $theme: boolean;
 }>`
   font-size: 14px;
@@ -481,7 +485,6 @@ const FilterTexts = styled.p<{
   cursor: pointer;
 
   &:hover {
-    /* color: #494c6b; */
     color: ${({ $theme }) => ($theme ? "#494c6b" : "#e3e4f1")};
   }
 `;
