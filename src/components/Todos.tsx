@@ -17,9 +17,10 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
 
   return (
     <>
-      <InputContainer>
-        <Mark></Mark>
+      <InputContainer $theme={theme}>
+        <Mark $theme={theme}></Mark>
         <Input
+          $theme={theme}
           type="text"
           placeholder="Create a new todo..."
           value={newTodo}
@@ -37,9 +38,9 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
           }}
         />
       </InputContainer>
-      <TodoContainer>
+      <TodoContainer $theme={theme}>
         {todo.length < 1 ? (
-          <NoTodos>No todos yet</NoTodos>
+          <NoTodos $theme={theme}>No todos yet</NoTodos>
         ) : (
           todo
             .filter((item) => {
@@ -53,6 +54,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
             })
             .map((each, index) => (
               <EachTodo
+                $theme={theme}
                 $mark={each.mark}
                 key={each.id}
                 style={{
@@ -62,6 +64,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
               >
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <Mark
+                    $theme={theme}
                     $mark={each.mark}
                     onClick={() => {
                       const modifiedTodo = [...todo];
@@ -71,7 +74,9 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
                       setTodo(modifiedTodo);
                     }}
                   ></Mark>
-                  <EachTodoText $mark={each.mark}>{each.task}</EachTodoText>
+                  <EachTodoText $theme={theme} $mark={each.mark}>
+                    {each.task}
+                  </EachTodoText>
                 </div>
                 <div>
                   <Cross
@@ -89,8 +94,8 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
               </EachTodo>
             ))
         )}
-        <AfterTodo>
-          <Info>
+        <AfterTodo $theme={theme}>
+          <Info $theme={theme}>
             {todo.length > 1
               ? `${todo.length} items left`
               : `${todo.length} item left`}
@@ -137,6 +142,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
             </FilterTexts>
           </FilterDesktop>
           <Info
+            $theme={theme}
             onClick={() => {
               const filtered = todo.filter((td) => td.mark !== true);
               setTodo(filtered);
@@ -175,12 +181,15 @@ const InputContainer = styled.div<{ $theme: boolean }>`
   }
 `;
 
-const Mark = styled.div<{ $mark: boolean }>`
+const Mark = styled.div<{ $mark: boolean; $theme: boolean }>`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: "#ffffff";
-  border: 1px solid #c5c5be;
+  /* background: "#ffffff"; */
+  background: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
+  /* border: 1px solid #c5c5be; */
+  border: ${({ $theme }) =>
+    $theme ? "1px solid #e3e4f1" : "1px solid #393a4b"};
   margin-left: 20px;
 
   ${({ $mark }) =>
@@ -208,7 +217,7 @@ const Mark = styled.div<{ $mark: boolean }>`
   }
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ $theme: boolean }>`
   font-family: "Josefin Sans", sans-serif !important;
   font-size: 12px;
   font-weight: normal;
@@ -219,7 +228,8 @@ const Input = styled.input`
   border: none;
   outline: none;
   caret-color: #3a7cfd;
-  background: #ffffff;
+  /* background: #ffffff; */
+  background: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
 
   &:focus {
     color: #393a4b;
@@ -231,10 +241,15 @@ const Input = styled.input`
   }
 `;
 
-const TodoContainer = styled.div`
+const TodoContainer = styled.div<{ $theme: boolean }>`
   border-radius: 5px;
-  background-color: #ffffff;
-  box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5);
+  /* background-color: #ffffff; */
+  background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
+  /* box-shadow: 0 35px 50px -15px rgba(194, 195, 214, 0.5); */
+  box-shadow: ${({ $theme }) =>
+    $theme
+      ? "0 35px 50px -15px rgba(194, 195, 214, 0.5)"
+      : "0 35px 50px -15px rgba(0, 0, 0, 0.5)"};
   padding-bottom: 20px;
   margin-top: 16px;
 
@@ -244,22 +259,25 @@ const TodoContainer = styled.div`
   }
 `;
 
-const NoTodos = styled.p`
+const NoTodos = styled.p<{ $theme: boolean }>`
   font-size: 25px;
   font-weight: bold;
-  color: #9495a5;
+  /* color: #9495a5; */
+  color: ${({ $theme }) => ($theme ? "#9495a5" : "#5b5e7e")};
   text-align: center;
   padding-top: 16px;
   margin-bottom: 30px;
 `;
 
-const EachTodo = styled.div<{ $mark: boolean }>`
+const EachTodo = styled.div<{ $mark: boolean; $theme: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   height: 48px;
-  border-bottom: 1px solid #e3e4f1;
+  /* border-bottom: 1px solid #e3e4f1; */
+  border-bottom: ${({ $theme }) =>
+    $theme ? "1px solid #e3e4f1" : "1px solid #393a4b"};
   cursor: pointer;
 
   &:hover {
@@ -273,12 +291,31 @@ const EachTodo = styled.div<{ $mark: boolean }>`
   }
 `;
 
-const EachTodoText = styled.p<{ $mark: boolean }>`
+const EachTodoText = styled.p<{ $mark: boolean; $theme: boolean }>`
   font-size: 12px;
   font-weight: normal;
   line-height: normal;
   letter-spacing: -0.17px;
-  color: ${({ $mark }) => ($mark ? "#d1d2da" : "#494c6b")};
+
+  ${({ $mark, $theme }) => {
+    if (!$mark && $theme) {
+      return css`
+        color: #494c6b;
+      `;
+    } else if ($mark && $theme) {
+      return css`
+        color: #d1d2da;
+      `;
+    } else if (!$mark && !$theme) {
+      return css`
+        color: #c8cbe7;
+      `;
+    } else if ($mark && !$theme) {
+      return css`
+        color: #4d5067;
+      `;
+    }
+  }};
   margin-left: 12px;
   text-decoration: ${({ $mark }) => ($mark ? "line-through" : "none")};
 
@@ -303,20 +340,23 @@ const Cross = styled.img`
   }
 `;
 
-const AfterTodo = styled.div`
+const AfterTodo = styled.div<{ $theme: boolean }>`
   display: flex;
   justify-content: space-between;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
+  background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
   padding-top: 16px;
 `;
 
-const Info = styled.p`
+const Info = styled.p<{ $theme: boolean }>`
   font-size: 12px;
   font-weight: normal;
   line-height: normal;
   letter-spacing: -0.17px;
-  color: #9495a5;
+  /* color: #9495a5; */
+  color: ${({ $theme }) => ($theme ? "#9495a5" : "#5b5e7e")};
   margin: 0;
+  background-color: ${({ $theme }) => ($theme ? "#ffffff" : "#25273d")};
 
   &:last-child:hover {
     color: #494c6b;
