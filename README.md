@@ -19,24 +19,23 @@ Users should be able to:
 ### Links
 
 Solution URL: [https://github.com/GIGAKLIBADZE/todo-app]
-Live Site URL: []
+Live Site URL: [https://todo-app-psi-five-85.vercel.app/]
 
 ## My process
 
-I used different point of view when starting building of the project. I split off it in different components, then started to initialize each of them. For styling purposes here you can see Tailwind CSS. I built it with TypeScript. I used mobile first workflow. For summary, I changed my mindest for with React JS for the process of building.
+I split the project into different components and initialized each of them. For styling, I used Styled-components for the first time and built the project with TypeScript, following a mobile-first workflow. I have now reached an advanced level in React.
 
 ### Built with
 
 Semantic HTML5 markup
-CSS custom properties
-Flexbox
 Mobile-first workflow
 TypeScript
 React JS
+Styled Components
 
 ### What I learned
 
-After creating some basic projects in React JS, I can confidently say that I am now familiar with the basics of this library. Now, I started learning of TypeScript and it is my first porject with this.. I plan to continue working on projects involving the React and TypeScript to deepen my understanding.
+After creating some basic projects in React JS, I can confidently say that I am now familiar with some advanced concepts of this library. I have also deepened my knowledge of TypeScript, and this is my first project styled using Styled-components. I plan to continue working on projects involving React and TypeScript to further enhance my understanding.
 
 ### Continued development
 
