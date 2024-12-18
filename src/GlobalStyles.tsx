@@ -22,8 +22,8 @@ const GlobalStyle = createGlobalStyle<{ $theme: boolean }>`
         background-color: ${({ $theme }) => ($theme ? "#fafafa" : "#171823")};
         background-image: ${({ $theme }) =>
           $theme
-            ? "url(../public/images/bg-mobile-light.jpg)"
-            : "url(../public/images/bg-mobile-dark.jpg)"};
+            ? "url(images/bg-mobile-light.jpg)"
+            : "url(images/bg-mobile-dark.jpg)"};
         background-repeat: no-repeat;  
         background-position: center top;
         background-size: contain;
@@ -32,8 +32,8 @@ const GlobalStyle = createGlobalStyle<{ $theme: boolean }>`
             padding: 70px 450px 52px 450px;
             background-image: ${({ $theme }) =>
               $theme
-                ? "url(../public/images/bg-desktop-light.jpg)"
-                : "url(../public/images/bg-desktop-dark.jpg)"};;
+                ? "url(images/bg-desktop-light.jpg)"
+                : "url(images/bg-desktop-dark.jpg)"};;
         }
         
     }

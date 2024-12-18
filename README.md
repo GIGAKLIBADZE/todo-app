@@ -11,13 +11,15 @@ Users should be able to:
 
 - View the optimal layout depending on their device's screen size
 - See hover states for interactive elements
-- See appropriate user datas based on user searches
-- See error messages if input fields are incorrectly filled or empty.
+- See their added todos
+- Filter todos based on they are active or no
+- Delete todos
+- See different theme based on their choice
 
 ### Links
 
-Solution URL: [https://github.com/GIGAKLIBADZE/github-user-search-app]
-Live Site URL: [https://github-user-search-app-two-eosin.vercel.app/]
+Solution URL: [https://github.com/GIGAKLIBADZE/todo-app]
+Live Site URL: []
 
 ## My process
 

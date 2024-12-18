@@ -81,7 +81,7 @@ const Todos: React.FC<{ theme: boolean }> = ({ theme }) => {
                 </div>
                 <div>
                   <Cross
-                    src="../public/images/icon-cross.svg"
+                    src="/images/icon-cross.svg"
                     alt="Cross"
                     onClick={() => {
                       each.task = "delete";
@@ -239,8 +239,8 @@ const Mark = styled.div<{ $mark?: boolean; $theme: boolean }>`
   ${({ $mark }) =>
     $mark
       ? css`
-          background-image: url("../public/images/icon-check.svg");
-          background-image: url("../public/images/icon-check.svg"),
+          background-image: url("/images/icon-check.svg");
+          background-image: url("/images/icon-check.svg"),
             linear-gradient(135deg, #5df, #c058f3);
           background-repeat: no-repeat;
           background-position: center;
